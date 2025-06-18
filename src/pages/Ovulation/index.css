@@ -1,0 +1,29 @@
+.focus-button {
+  background-color: #615efc;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 30px; /* Bo tròn góc nút */
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease; /* Thêm hiệu ứng mượt mà */
+  display: flex; /* Căn giữa chữ bên trong nút */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  margin-left: 250px;
+}
+.focus-button:focus {
+  background-color: #4a47f5; /* Màu nền khi focus */
+  transform: scale(1.05); /* Phóng to 5% khi focus */
+  box-shadow: 0 0 8px rgba(97, 94, 252, 0.5); /* Hiệu ứng bóng */
+  outline: none; /* Loại bỏ đường viền focus mặc định */
+}
+
+.focus-button:hover {
+  background-color: #000000 !important; 
+  transform: scale(1.05) !important;
+}
+.table-striped-light {
+  background-color: #e9e9fa;
+  }
+
+.table-striped-dark {
+  background-color: #f4f6f8;
+}

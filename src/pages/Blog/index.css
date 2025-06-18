@@ -1,0 +1,227 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Heading Styles */
+h1, h3 {
+  color: #333;
+}
+
+/* Blog Page */
+.blog-page {
+  max-width: 1400px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* Blog Header */
+.blog-header {
+  background-image: url('/public/blog/bg01.png'); /* Đặt ảnh nền */
+  background-size: cover; /* Làm cho ảnh bao phủ toàn bộ khu vực */
+  background-position: center; /* Căn giữa ảnh nền */
+  background-repeat: no-repeat; /* Đảm bảo ảnh không lặp lại */
+  display: flex; /* Sử dụng Flexbox để căn chỉnh nội dung */
+  flex-direction: column; /* Căn chỉnh theo chiều dọc */
+  justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+  text-align: center; /* Căn giữa nội dung trong header */
+  color: #ffffff; /* Màu chữ sáng để dễ đọc trên nền tối */
+  border-radius: 10px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3); /* Thêm bóng tối nhẹ vào bên trong */
+  padding: 80px 20px;
+  margin-bottom: 50px;
+}
+
+.blog-header h1 {
+  font-size: 63px;
+  color: #fff; /* Màu chữ sáng hơn để dễ nhìn */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Thêm bóng chữ để nổi bật */
+}
+
+.blog-header p {
+  font-size: 20px;
+  color: #ddd;
+  margin-top: -10px;
+  line-height: 1.8;
+}
+
+/* Blog Posts Grid */
+.blog-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin-top: 30px;
+}
+
+/* Blog Card */
+.blog-card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+}
+
+.blog-image img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-image img {
+  transform: scale(1.05);
+}
+
+/* Blog Content */
+.blog-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-content h3 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.blog-content p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.blog-date {
+  font-size: 14px;
+  color: #888;
+  margin-top: 10px;
+}
+
+/* View Full Button Style */
+.view-full {
+  text-decoration: none;
+  color: #fff;
+  background-color: #615efc;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin-top: 10px;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-full:hover {
+  background-color: #000000;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 70%;
+  max-width: 900px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+  margin: 0;
+}
+
+/* Modal Title */
+.modal-content h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Modal Body */
+.modal-content p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.8;
+}
+
+/* Close Button */
+.close-modal {
+  background-color: #615efc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.close-modal:hover {
+  background-color: #000000;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .blog-header h1 {
+    font-size: 30px;
+  }
+
+  .blog-content h3 {
+    font-size: 20px;
+  }
+
+  .blog-posts {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .blog-date {
+    font-size: 12px;
+  }
+
+  .read-more, .view-full {
+    font-size: 14px;
+  }
+}

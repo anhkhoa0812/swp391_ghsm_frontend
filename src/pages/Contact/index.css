@@ -1,0 +1,96 @@
+.contact-page {
+  padding: 60px 20px;
+  background-color: #f9fafb;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.contact-header p {
+  font-size: 18px;
+  color: #475569;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #334155;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+}
+
+.map-embed {
+  max-width: 800px;
+  margin: 0 auto 50px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.contact-form-wrapper {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 700px;
+  margin: 40px auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form-wrapper h3 {
+  font-size: 24px;
+  color: #0f172a;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form-input {
+  font-size: 16px !important;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  width: 100%;
+}
+
+.submit-button {
+  background-color: #615efc !important;
+  border: none !important;
+  color: white !important;
+  padding: 12px 24px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 20px !important;
+  width: 40% !important;
+  margin-top: 20px !important;
+  transition: background 0.3s ease, transform 0.2s ease !important;
+}
+
+.submit-button:hover {
+  background-color: #000000 !important;
+  transform: scale(1.03) !important;
+}
+
+@media (min-width: 768px) {
+  .contact-info {
+    grid-template-columns: 1fr 1fr;
+  }
+}

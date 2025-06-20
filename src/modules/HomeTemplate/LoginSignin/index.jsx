@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-vars */
-
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { AppBar, Box, Tab, Tabs } from "@mui/material";
 import Login from "../Login";
 import Signin from "../Signin";
 
-// Danh sách các tab trong phần Account Settings
-const tabLabels = ["Log in", "Sign in"];
+const tabLabels = ["Log in", "Sign up"];
 
-
-
-export default function LoginSignin({ open, onClose }) {
-  // Quản lý state cho tab đang được chọn
+export default function LoginSignin({ open, onClose, onLoginSuccess }) {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleChangeTab = (event, newValue) => {
     setActiveTab(newValue);
+  };
+
+  const handleSuccess = (userData) => {
+    onLoginSuccess(userData);
+    onClose();
   };
 
   return (
@@ -40,9 +40,8 @@ export default function LoginSignin({ open, onClose }) {
           </Tabs>
         </AppBar>
 
-        {/* Nội dung cho từng tab*/}
-        {activeTab === 0 && <Login onClose={onClose} />}
-        {activeTab === 1 && <Signin setActiveTab={setActiveTab} />}
+        {activeTab === 0 && <Login setActiveTab={setActiveTab} onLoginSuccess={handleSuccess} />}
+        {activeTab === 1 && <Signin setActiveTab={setActiveTab} onLoginSuccess={handleSuccess} />}
       </Box>
     </Modal>
   );

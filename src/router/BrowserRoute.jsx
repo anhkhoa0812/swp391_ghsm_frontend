@@ -8,6 +8,7 @@ import BlogPage from "../pages/Blog";
 import QuizPage from "../modules/HomeTemplate/quiz";
 import AboutHealthWise from "../pages/AboutHealthWise";
 import ContactPage from "../pages/Contact";
+import Booking from "../modules/HomeTemplate/Booking";
 
 const routes = [
   {
@@ -20,6 +21,8 @@ const routes = [
         path: "/due-date/result",
         element: <DueDateCalculatorResultTemplate />,
       },
+
+      { path: "/Booking", element: <Booking /> },
       { path: "/blog", element: <BlogPage /> },
       { path: "/about", element: <AboutHealthWise /> },
       { path: "/quiz", element: <QuizPage /> },

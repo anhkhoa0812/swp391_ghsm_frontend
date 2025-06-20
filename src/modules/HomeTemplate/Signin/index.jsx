@@ -1,55 +1,56 @@
 import React, { useState } from "react";
 import { Form, Input, Typography, message as Message } from "antd";
 import SigninBackground from "../../../assets/Signin.png";
-// import { useRegister } from "../../../apis/CallAPIUser";
 import BackdropLoader from "../../../components/BackdropLoader";
+import authApi from "../../../api/authApi";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
-export default function Signin({ setActiveTab }) {
+export default function Signin({ setActiveTab, onLoginSuccess }) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
+    fullName: "",
     email: "",
     password: "",
-    fullname: "",
+    roleId: "8E769FE0-EC63-45BC-A0C2-4BA7870CBA32",
+    phoneNumber: "",
+    gender: "",
   });
+  const navigate = useNavigate();
 
-  // Xử lý đăng ký
-  const handleSubmit = () => {
+
+  const handleSubmit = async () => {
     setLoading(true);
+    try {
+      const response = await authApi.register(
+        user.fullName,
+        user.email,
+        user.password,
+        user.roleId,
+        user.phoneNumber,
+        user.gender
+      );
 
-    // TODO: Thay thế bằng API thật khi có
-    console.log("Register data:", {
-      email: user.email,
-      password: user.password,
-      fullname: user.fullname,
-    });
-
-    // Giả lập success
-    setTimeout(() => {
-      Message.success("Sign in successfully (Mock)");
-      setActiveTab(0);
+      const userData = {
+        userId: response.userId || "generated-user-id",
+        token: response.token || "generated-token",
+        avatar: response.avatar || null
+      };
+      Message.success("Registration successful");
+      localStorage.setItem('USER_TOKEN', JSON.stringify(userData));
+      onLoginSuccess(userData);
+      navigate("/");
+    } catch (error) {
+      console.error("Registration error:", error);
+      Message.error("Registration failed: " + error.message);
+    } finally {
       setLoading(false);
-    }, 1500);
-
-    // 🔥 KHI CÓ API THẬT, UNCOMMENT ĐOẠN NÀY VÀ XÓA PHẦN TRÊN
-    /*
-    useRegister(user.email, user.password, user.fullname)
-      .then((res) => {
-        Message.success("Sign in successfully");
-        setActiveTab(0);
-        setLoading(false);
-      })
-      .catch((error) => {
-        Message.error("Failed sign in: " + error.message);
-        setLoading(false);
-      });
-    */
+    }
   };
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Ảnh nền bên trái */}
       <div style={{ flex: 1, overflow: "hidden" }}>
         <img
           src={SigninBackground}
@@ -63,7 +64,6 @@ export default function Signin({ setActiveTab }) {
           }}
         />
       </div>
-      {/* Form bên phải */}
       <div
         style={{
           flex: 1,
@@ -77,7 +77,7 @@ export default function Signin({ setActiveTab }) {
         <div style={{ width: "100%", maxWidth: 400, margin: "0 auto" }}>
           <div className="row justify-content-md-center">
             <div className="col-md-auto mb-3">
-              <Title>Sign in</Title>
+              <Title>Sign up</Title>
             </div>
           </div>
           <Text
@@ -87,18 +87,18 @@ export default function Signin({ setActiveTab }) {
               marginLeft: "24px",
             }}
           >
-            Enter your email to become a new HealthWise member!
+            Enter your details to become a new HealthWise member!
           </Text>
           <Form layout="vertical" onFinish={handleSubmit}>
             <Form.Item
-              name="fullname"
+              name="fullName"
               rules={[{ required: true, message: "Please enter full name!" }]}
               style={{ marginBottom: 35 }}
             >
               <Input
                 placeholder="Full name"
-                value={user.fullname}
-                onChange={(e) => setUser({ ...user, fullname: e.target.value })}
+                value={user.fullName}
+                onChange={(e) => setUser({ ...user, fullName: e.target.value })}
                 style={{ height: 50, fontSize: 16 }}
               />
             </Form.Item>
@@ -119,8 +119,15 @@ export default function Signin({ setActiveTab }) {
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[{ required: true, message: "Please enter password!" }]}
-              style={{ marginBottom: 50 }}
+              rules={[
+                { required: true, message: "Please enter password!" },
+                { min: 8, message: "Password must be at least 8 characters!" },
+                {
+                  pattern: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  message: "Password must contain letters, numbers, and special characters!",
+                },
+              ]}
+              style={{ marginBottom: 35 }}
             >
               <Input.Password
                 placeholder="Password"
@@ -129,18 +136,48 @@ export default function Signin({ setActiveTab }) {
                 style={{ height: 50, fontSize: 16 }}
               />
             </Form.Item>
+            <Form.Item
+              name="phoneNumber"
+              rules={[
+                { required: true, message: "Please enter phone number!" },
+                { pattern: /^\d{10,11}$/, message: "Phone number must be 10-11 digits!" },
+              ]}
+              style={{ marginBottom: 35 }}
+            >
+              <Input
+                placeholder="Phone Number"
+                value={user.phoneNumber}
+                onChange={(e) => setUser({ ...user, phoneNumber: e.target.value })}
+                style={{ height: 50, fontSize: 16 }}
+              />
+            </Form.Item>
+            <Form.Item
+              name="gender"
+              rules={[{ required: true, message: "Please enter gender!" }]}
+              style={{ marginBottom: 50 }}
+            >
+              <Input
+                placeholder="Gender (e.g., Male, Female)"
+                value={user.gender}
+                onChange={(e) => setUser({ ...user, gender: e.target.value })}
+                style={{ height: 50, fontSize: 16 }}
+              />
+            </Form.Item>
             <Form.Item>
               <div className="row justify-content-md-center">
                 <div className="col-md-auto">
                   <button className="rts-btn btn-primary" type="submit">
-                    Sign in
+                    Sign up
                   </button>
                 </div>
               </div>
             </Form.Item>
           </Form>
           <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Text>Already have an account? Log in now!</Text>
+            <Text>
+              Already have an account?{" "}
+              <a onClick={() => setActiveTab(0)}>Log in now!</a>
+            </Text>
           </div>
         </div>
       </div>
